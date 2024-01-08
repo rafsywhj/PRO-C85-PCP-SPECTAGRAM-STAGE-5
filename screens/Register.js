@@ -15,6 +15,10 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { RFValue } from 'react-native-responsive-fontsize';
 
+let customFonts = {
+	'Bubblegum-Sans': require('../assets/fonts/BubblegumSans-Regular.ttf'),
+};
+
 export default class RegisterScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -24,7 +28,17 @@ export default class RegisterScreen extends Component {
 			email: '',
 			password: '',
 			confirmPassword: '',
+			fontsLoaded: false,
 		};
+	}
+
+	async _loadFontsAsync() {
+		await Font.loadAsync(customFonts);
+		this.setState({ fontsLoaded: true });
+	}
+
+	componentDidMount() {
+		this._loadFontsAsync();
 	}
 
 	registerUser = (email, password, confirmPassword, first_name, last_name) => {

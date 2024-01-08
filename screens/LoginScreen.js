@@ -18,14 +18,28 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 const appIcon = require('../assets/logo.png');
 
+let customFonts = {
+	'Bubblegum-Sans': require('../assets/fonts/BubblegumSans-Regular.ttf'),
+};
+
 export default class LoginScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			email: '',
 			password: '',
+			fontsLoaded: false,
 			userSignedIn: false,
 		};
+	}
+
+	async _loadFontsAsync() {
+		await Font.loadAsync(customFonts);
+		this.setState({ fontsLoaded: true });
+	}
+
+	componentDidMount() {
+		this._loadFontsAsync();
 	}
 
 	signIn = async (email, password) => {
