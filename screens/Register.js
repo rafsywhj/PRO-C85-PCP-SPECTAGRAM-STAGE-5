@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+import db from '../config';
 
 import { RFValue } from 'react-native-responsive-fontsize';
 
@@ -49,15 +51,15 @@ export default class RegisterScreen extends Component {
 					Alert.alert('User registered!!');
 					console.log(userCredential.user.uid);
 					this.props.navigation.replace('Login');
-					firebase
-						.database()
-						.ref('/users/' + userCredential.user.uid)
-						.set({
-							email: userCredential.user.email,
-							first_name: first_name,
-							last_name: last_name,
-							current_theme: 'dark',
-						});
+
+					const dbRef = ref(db, '/users/' + userCredential.user.uid);
+
+					set(dbRef, {
+						email: userCredential.user.email,
+						first_name: first_name,
+						last_name: last_name,
+						current_theme: 'dark',
+					});
 				})
 				.catch((error) => {
 					Alert.alert(error.message);
