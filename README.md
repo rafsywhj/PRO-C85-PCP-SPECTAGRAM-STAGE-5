@@ -1,2 +1,2 @@
-# Spectogram-stage-5
-project solution for c85
+# PRO-C85-PCP-SPECTAGRAM-STAGE-5
+Project Solution for C85
