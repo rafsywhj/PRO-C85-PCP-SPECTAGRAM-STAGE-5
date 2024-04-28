@@ -43,14 +43,9 @@ export default class LoginScreen extends Component {
 	}
 
 	signIn = async (email, password) => {
-		const auth = getAuth();
-		signInWithEmailAndPassword(auth, email, password)
-			.then(() => {
-				this.props.navigation.replace('Dashboard');
-			})
-			.catch((error) => {
-				Alert.alert(error.message);
-			});
+
+
+		
 	};
 
 	render() {
